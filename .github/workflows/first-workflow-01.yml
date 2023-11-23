@@ -1,0 +1,18 @@
+# Discription : Creating a github workflow 
+# 1). add a first job called job1 with two steps within it and The steps should be simple CLI commands to echo out step1 and step2 as applicable
+# 2). add a second job called job2 with two steps within it and The steps should be simple CLI commands to echo out step1 and step2 as applicable
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      # echos job1
+      - name: step1
+        run: echo "step1"
+      # echos job2
+      - name: step2
+        run: echo "step2"
+        
+    
