@@ -20,6 +20,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
     - name: Check .NET Version
       run: |
         dotnet_version=$(dotnet --version)
@@ -27,12 +32,7 @@ jobs:
           echo "Error: This workflow requires .NET 6.0.x. Found version: $dotnet_version"
           exit 1
         fi
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-
+        
     - name: Restore dependencies
       run: dotnet restore
 
