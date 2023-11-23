@@ -22,6 +22,6 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build the Docker image
-      run: docker build ./Application/src/RazorPagesTestSample --file Dockerfile --tag johan-image:latest
+      run: docker build --file ./Application/src/RazorPagesTestSample/Dockerfile --tag ${{ secrets.ACR_LOGIN_SERVER }}/johans-image ./Application/src/RazorPagesTestSample
     - name: Push Docker image
-      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/johans-image:latest
+      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/johans-image
