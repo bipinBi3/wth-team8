@@ -5,9 +5,9 @@ name: Callum .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Callum-Team8" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Callum-Team8" ]
 
 env:
   registryName: 7i5crswc5yo2gwthreg.azurecr.io
@@ -39,7 +39,7 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: '7i5crswc5yo2g-dev'
-        images: '7i5crswc5yo2gwthreg.azurecr.io/wth/dotnetcoreapp:$tag'
+        images: $registryName/wth/dotnetcoreapp:$tag'
       
 
       
