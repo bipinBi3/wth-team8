@@ -41,3 +41,17 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+
+    - name: Create GitHub Issue on Failure
+      if: ${{ steps.deployment_status.outputs.status == 'failure' }}
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const { data: createIssueResponse } = await github.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Deployment Failed',
+            body: 'The deployment to Azure failed. Please investigate and fix the issue.',
+          });
+          console.log(`Created issue ${createIssueResponse.number}`);
