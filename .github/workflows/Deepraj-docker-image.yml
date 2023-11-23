@@ -4,7 +4,7 @@ env:
   registryName: 7i5crswc5yo2gwthreg.azurecr.io
   repositoryName: wth/dotnetcoreapp
   dockerfolderpath: Application/src/RazorPagesTestSample
-  tag: ${{ github.run_number }}
+  tag: ${{github.run_number}}
 
 on:
   push:
@@ -20,9 +20,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Login to ACR
-      run: |
-          docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+    - name: Login to Azure Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
     - name: Docker Build
       run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
     - name: Docker Push
