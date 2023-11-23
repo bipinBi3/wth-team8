@@ -6,5 +6,7 @@
 			"installBicep": true,
 			"version": "latest"
 		}
-	}
+	},
+    // add a post create command to install GitHub copilot
+    "postCreateCommand": "dotnet tool install -g GitHub.Copilot --version 1.0.0-beta.3.1"
 }
