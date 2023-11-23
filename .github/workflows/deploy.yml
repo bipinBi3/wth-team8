@@ -24,9 +24,4 @@ jobs:
         subscriptionId: ${{ vars.SUBSCRIPTION_ID }}
         resourceGroupName: ${{ vars.RESOURCE_GROUP }}
         template: ./InfrastructureAsCode/main.bicep
-        parameters: >
-          {
-            "environment": {
-              "value": "test"
-            }
-          }
+        parameters: ./InfrastructureAsCode/parameters.json
