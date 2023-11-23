@@ -9,6 +9,7 @@ on:
 env:
   tag: ${{ github.run_number }}
   repo: johans-repo
+  appname: 7i5crswc5yo2g-prod
 
 jobs:
 
@@ -24,8 +25,17 @@ jobs:
         registry: ${{ secrets.ACR_LOGIN_SERVER }}
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
-
     - name: Build the Docker image
       run: docker build --file ./Application/src/RazorPagesTestSample/Dockerfile --build-arg build_version=$tag --tag ${{ secrets.ACR_LOGIN_SERVER }}/$repo:$tag ./Application/src/RazorPagesTestSample
     - name: Push Docker image
       run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/$repo:$tag
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: 'Deploy to Azure Web App for Container'
+      uses: azure/webapps-deploy@v3.0.0
+      with: 
+        app-name: 7i5crswc5yo2g-prod
+        images: 7i5crswc5yo2gwthreg.azurecr.io/johans-repo:${{ env.tag }}
+    
