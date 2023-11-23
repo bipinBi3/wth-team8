@@ -1,4 +1,4 @@
-name: Deploy Bicep Template
+name: Deploy shiva Bicep Template
 
 on: workflow_dispatch
 
