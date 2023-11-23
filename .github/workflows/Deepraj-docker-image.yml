@@ -24,6 +24,6 @@ jobs:
       run: |
           docker login $registryName -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
     - name: Docker Build
-      run: docker buildx build -t "$registryName/$repositoryName:$tag" --build-arg build_version="$tag" -f "$dockerFolderPath/Dockerfile" "$dockerFolderPath"
+      run: docker build --file ./Application/src/RazorPagesTestSample/Dockerfile --tag ${{ secrets.ACR_LOGIN_SERVER }}/wth8-image ./Application/src/RazorPagesTestSample
     - name: Docker Push
       run: docker push $registryName/$repositoryName:$tag
