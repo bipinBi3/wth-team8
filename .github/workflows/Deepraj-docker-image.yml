@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+env:
+  registryName: 7i5crswc5yo2gwthreg.azurecr.io
+  repositoryName: wth/dotnetcoreapp
+  dockerfolderpath: Application/src/RazorPagesTestSample
+  tag: ${{ github.run_number }}
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Login to ACR
+      run: |
+          docker login ${{ secrets.REGISTRY_NAME }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+    - name: Docker Build
+      run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+    - name: Docker Push
+      run: docker push $registryName/$repositoryName:$tag
