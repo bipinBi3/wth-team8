@@ -7,11 +7,11 @@ on:
   push:
     paths:
       - '/Application'
-    branches: [ "main" ]
+    branches: [ "team8-shiva" ]
   pull_request:
     paths:
       - '/Application'
-    branches: [ "main" ]
+    branches: [ "team8-shiva" ]
 
 jobs:
   build:
