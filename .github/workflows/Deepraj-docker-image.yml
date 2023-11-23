@@ -42,3 +42,9 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Web App
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: 7i5crswc5yo2g-dev   # Replace with your Web App name
+        images: '$registryName/$repositoryName:latest'  # Replace with your ACR and image details
