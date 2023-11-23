@@ -1,5 +1,5 @@
 {
   "environment": {
-    "value": "test"
+    "value": "prod"
   }
 }
