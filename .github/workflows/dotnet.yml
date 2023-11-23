@@ -7,11 +7,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - './Application'
+      - './Application/src/RazorPagesTestSample'
   pull_request:
     branches: [ "main" ]
     paths:
-      - './Application'
+      - './Application/src/RazorPagesTestSample'
 
 jobs:
   build:
