@@ -1,0 +1,51 @@
+name: Mizumi docker
+
+env:
+  registryName: 7i5crswc5yo2gwthreg.azurecr.io
+  repositoryName: wth/dotnetcoreapp
+  dockerFolderPath: ./Application/src/RazorPagesTestSample
+  tag: ${{github.run_number}}
+  
+on:
+  push:
+    branches: [ main ]
+    paths: Application/*
+  pull_request:
+    branches: [ main ]
+    paths: Application/*
+    
+  workflow_dispatch:
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0
+    
+    - name: Restore dependencies
+      run: dotnet restore ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+    - name: Build
+      run: dotnet build --no-restore ./Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+    - name: Test
+      run: dotnet test --no-build --verbosity normal ./Application/tests/RazorPagesTestSample.Tests/RazorPagesTestSample.Tests.csproj
+      
+  dockerLoginBuildPush:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Docker Login
+      run: docker login $registryName -u ${{secrets.ACR_USERNAME}} -p  ${{secrets.ACR_PASSWORD}}
+        
+    - name: Docker Build
+      run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+    - name: Docker Push
+      run: docker push $registryName/$repositoryName:$tag
+
