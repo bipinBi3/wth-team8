@@ -1,32 +1,35 @@
 name: Deepraj Docker Image CI
 
-env:
-  registryName: 7i5crswc5yo2gwthreg.azurecr.io
-  repositoryName: wth/dotnetcoreapp
-  dockerfolderpath: Application/src/RazorPagesTestSample
-  tag: ${{github.run_number}}
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+env:
+  registryName: 7i5crswc5yo2gwthreg.azurecr.io
+  repositoryName: wth/dotnetcoreapp
+  dockerFolderPath: Application/src/RazorPagesTestSample
+  tag: ${{github.run_number}}
+
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
+    
     - name: Login to Azure Container Registry
       uses: docker/login-action@v1
       with:
         registry: ${{ secrets.ACR_LOGIN_SERVER }}
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
-    - name: Docker Build
+        
+    - name: Docker build
       run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
-    - name: Docker Push
+      
+    - name: Docker push
       run: docker push $registryName/$repositoryName:$tag
