@@ -5,11 +5,11 @@ name: shiva .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "team8-shiva" ]
     paths:
       - './Application'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "team8-shiva" ]
     paths:
       - './Application'
 
