@@ -36,8 +36,12 @@ jobs:
       run: docker push $registryName/$repositoryName:$tag
 
     - name: Docker deploy
-      uses: azure/webapps-deploy@v2
+    - uses: docker/login-action@v
+    - uses: azure/webapps-deploy@v2
       with:
+        registry: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
         app-name: '7i5crswc5yo2g-dev'
         images: '7i5crswc5yo2gwthreg.azurecr.io/wth/dotnetcoreapp:$tag'
       
