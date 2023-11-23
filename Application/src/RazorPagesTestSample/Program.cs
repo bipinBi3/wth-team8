@@ -17,6 +17,7 @@ namespace RazorPagesTestSample
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                
                 var db = services.GetRequiredService<AppDbContext>();
 
                 db.Database.EnsureCreated();
