@@ -1,4 +1,4 @@
-name: .NET
+name: Deepraj .NET Build
 
 on:
   push:
@@ -24,14 +24,6 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-        
-    - name: Check .NET Version
-      run: |
-        dotnet_version=$(dotnet --version)
-        if [[ "$dotnet_version" != "6.0."* ]]; then
-          echo "Error: This workflow requires .NET 6.0.x. Found version: $dotnet_version"
-          exit 1
-        fi
         
     - name: Restore dependencies
       run: dotnet restore
