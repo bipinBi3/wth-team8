@@ -2,7 +2,7 @@ name: Mizumi docker
 
 env:
   registryName: 7i5crswc5yo2gwthreg.azurecr.io
-  repositoryName: wth/dotnetcoreapp
+  repositoryName: mizumi-wth/dotnetcoreapp
   dockerFolderPath: ./Application/src/RazorPagesTestSample
   tag: ${{github.run_number}}
   
