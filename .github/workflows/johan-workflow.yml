@@ -1,6 +1,8 @@
 name: Johan's Actions
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: workflow_dispatch
+on:
+  issues:
+    types: [opened]
 jobs:
   Job1:
     runs-on: ubuntu-latest
