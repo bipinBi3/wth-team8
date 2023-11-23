@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "johan" ]
 
+env:
+  tag: ${{ github.run_number }}
+  repo: johans-repo
+
 jobs:
 
   build:
@@ -22,6 +26,6 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build the Docker image
-      run: docker build --file ./Application/src/RazorPagesTestSample/Dockerfile --tag ${{ secrets.ACR_LOGIN_SERVER }}/johans-image ./Application/src/RazorPagesTestSample
+      run: docker build --file ./Application/src/RazorPagesTestSample/Dockerfile --build-arg build_version=$tag --tag ${{ secrets.ACR_LOGIN_SERVER }}/$repo:$tag ./Application/src/RazorPagesTestSample
     - name: Push Docker image
-      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/johans-image
+      run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/$repo:$tag
