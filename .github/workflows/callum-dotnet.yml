@@ -6,8 +6,6 @@ name: Callum .NET
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - './Application'
   pull_request:
     branches: [ "main" ]
 
