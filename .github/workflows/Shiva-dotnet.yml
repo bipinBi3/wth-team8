@@ -5,9 +5,9 @@ name: shiva .NET
 
 on:
   push:
-    branches: [ "team8-shiva" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "team8-shiva" ]
+    branches: [ "main" ]
 
 jobs:
   build:
